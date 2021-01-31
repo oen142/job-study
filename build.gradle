@@ -1,0 +1,115 @@
+plugins {
+    id 'org.springframework.boot' version '2.4.2' apply false
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'idea'
+    id 'maven'
+}
+
+
+subprojects {
+
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: "org.springframework.boot"
+    apply plugin: "io.spring.dependency-management"
+
+    group = 'com.wani'
+    version = '0.0.1'
+    sourceCompatibility = '11'
+
+    configurations {
+        developmentOnly
+        runtimeClasspath {
+            extendsFrom developmentOnly
+        }
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+        all {
+            exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        }
+    }
+
+    compileJava.options.encoding = 'UTF-8'
+
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+            maven { url 'https://jitpack.io' }
+        }
+    }
+
+    dependencies {
+
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+        annotationProcessor 'org.projectlombok:lombok:1.18.8'
+        compile "org.springframework.boot:spring-boot-starter"
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+
+
+}
+
+project(':domain') {
+
+    description = "Common project"
+    dependencies {
+
+        implementation 'mysql:mysql-connector-java'
+        implementation 'org.springframework.boot:spring-boot-starter-mail'
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+
+        compile("com.querydsl:querydsl-core") // querydsl
+        compile("com.querydsl:querydsl-jpa") // querydsl
+
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    }
+    jar {
+        enabled = true
+    }
+
+    bootJar {
+        enabled = false
+    }
+
+    compileJava {
+        options.annotationProcessorPath = configurations.annotationProcessor
+    }
+}
+project(':application') {
+    description = "API preojct"
+
+    dependencies {
+
+        //swagger
+        compile("io.springfox:springfox-swagger2:2.9.2") { exclude module: 'swagger-annotations' exclude module: 'swagger-models' }
+        compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+        compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+        compile group: 'io.springfox', name: 'springfox-bean-validators', version: '2.9.2'
+
+
+        implementation 'mysql:mysql-connector-java'
+
+
+        implementation 'org.springframework.boot:spring-boot-starter-webflux'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation('com.github.lannstark:excel-download:0.1.1')
+
+        implementation project(':domain')
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    }
+
+}
