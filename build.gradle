@@ -107,3 +107,25 @@ project(':application') {
     }
 
 }
+project(':admin') {
+    description = "API preojct"
+
+    dependencies {
+
+        //swagger
+        compile("io.springfox:springfox-swagger2:2.9.2") { exclude module: 'swagger-annotations' exclude module: 'swagger-models' }
+        compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+        compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+        compile group: 'io.springfox', name: 'springfox-bean-validators', version: '2.9.2'
+
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        implementation 'org.springframework.boot:spring-boot-starter-mail'
+        implementation 'mysql:mysql-connector-java'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation('com.github.lannstark:excel-download:0.1.1')
+
+        implementation project(':domain')
+
+    }
+
+}

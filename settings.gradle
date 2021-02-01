@@ -1,3 +1,4 @@
 rootProject.name = 'job-study'
 include 'domain'
 include 'application'
+include 'admin'
