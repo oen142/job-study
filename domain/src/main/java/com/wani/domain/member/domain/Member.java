@@ -10,6 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
+@ToString(of = {"id", "email", "username"})
 public class Member extends CommonEntity {
 
 
@@ -18,9 +19,13 @@ public class Member extends CommonEntity {
     @Column(name = "member_id")
     private Long id;
 
+    private String email;
+
     private String username;
+
     private String password;
 
-    @Enumerated
+    @Enumerated(value = EnumType.STRING)
     private UserRole userRole;
+
 }

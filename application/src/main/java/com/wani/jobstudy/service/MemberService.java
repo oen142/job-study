@@ -16,14 +16,18 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
 
-    public List<Member> getMembers() {
-        return memberRepository.findAll();
+    public List<Member> getMembersDesc() {
+        return memberRepository.findByEmailDescUserName();
+    }
+
+    public List<Member> getMembersAsc() {
+        return memberRepository.findByEmailAscUserName();
     }
 
     public void save() {
         List<Member> members = new ArrayList<>();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             members.add(Member.builder()
                     .username(i + "test")
                     .password(i + "pass").build());

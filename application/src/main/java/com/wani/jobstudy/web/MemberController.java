@@ -1,7 +1,7 @@
 package com.wani.jobstudy.web;
 
 import com.wani.domain.member.domain.Member;
-import com.wani.jobstudy.service.MemberService;
+import com.wani.jobstudy.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +23,14 @@ public class MemberController {
         return "ok";
     }
 
-    @GetMapping("/member")
+
+    @GetMapping("/member/desc")
+    public List<Member> getMembersDesc() {
+        return memberService.getMembersDesc();
+    }
+
+    @GetMapping("/member/asc")
     public List<Member> getMembers() {
-        return memberService.getMembers();
+        return memberService.getMembersAsc();
     }
 }
