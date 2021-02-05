@@ -1,6 +1,7 @@
 package com.wani.jobstudy.web;
 
 import com.wani.domain.member.domain.Member;
+import com.wani.jobstudy.auth.domain.AuthenticationPrincipal;
 import com.wani.jobstudy.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
@@ -25,7 +26,7 @@ public class MemberController {
 
 
     @GetMapping("/member/desc")
-    public List<Member> getMembersDesc() {
+    public List<Member> getMembersDesc(@AuthenticationPrincipal Member member) {
         return memberService.getMembersDesc();
     }
 

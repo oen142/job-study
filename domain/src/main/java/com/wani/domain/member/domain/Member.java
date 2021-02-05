@@ -28,4 +28,10 @@ public class Member extends CommonEntity {
     @Enumerated(value = EnumType.STRING)
     private UserRole userRole;
 
+
+    public void checkPassword(String password){
+        if(!password.equals(this.password)){
+            throw new AuthorizationException();
+        }
+    }
 }
