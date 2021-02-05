@@ -1,5 +1,6 @@
 package com.wani.domain.member.domain;
 
+import com.wani.domain.common.domain.CommonEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class Member {
+public class Member extends CommonEntity {
 
 
     @Id

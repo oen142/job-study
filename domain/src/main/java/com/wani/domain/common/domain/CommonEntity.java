@@ -1,6 +1,5 @@
 package com.wani.domain.common.domain;
 
-import com.wani.domain.member.domain.Member;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -10,28 +9,28 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
+import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
 
 @EntityListeners(AuditingEntityListener.class)
+@MappedSuperclass
 @Getter
-public abstract class CommonEntity {
+public class CommonEntity {
 
     @CreatedDate
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @CreatedBy
-    @OneToOne(fetch = FetchType.LAZY)
     @Column(name = "created_by")
-    private Member createdMember;
+    private Long createdMember;
 
     @LastModifiedDate
-    private LocalDateTime updatedAt;
+    @Column(name = "modified_at")
+    private LocalDateTime modifiedAt;
 
     @LastModifiedBy
     @Column(name = "modified_by")
-    @OneToOne(fetch = FetchType.LAZY)
-    private Member updatedMember;
+    private Long modifiedMember;
 }
