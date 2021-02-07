@@ -49,6 +49,7 @@ public class MemberAcceptanceTest extends AcceptanceTest {
         회원_정보_수정됨(updateResponse);
 
 
+
     }
 
     public static ExtractableResponse<Response> 회원_생성을_요청(String email, String password, String username) {
