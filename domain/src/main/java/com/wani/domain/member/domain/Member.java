@@ -2,7 +2,7 @@ package com.wani.domain.member.domain;
 
 import com.wani.domain.common.domain.CommonEntity;
 import lombok.*;
-
+import org.apache.commons.lang3.StringUtils;
 import javax.persistence.*;
 
 @Entity
@@ -34,9 +34,16 @@ public class Member extends CommonEntity {
         this.password = password;
     }
 
-    public void checkPassword(String password){
-        if(!password.equals(this.password)){
+    public void checkPassword(String password) {
+        if (!StringUtils.equals(this.password, password)) {
             throw new AuthorizationException();
         }
     }
+
+    public void update(Member member) {
+        this.email = member.email;
+        this.password = member.password;
+        this.username = member.username;
+    }
+
 }

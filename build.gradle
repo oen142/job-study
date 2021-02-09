@@ -46,6 +46,8 @@ subprojects {
     dependencies {
         // jwt
         implementation 'io.jsonwebtoken:jjwt:0.9.1'
+        // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+        compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
 
         testImplementation 'io.rest-assured:rest-assured:3.3.0'
 
@@ -122,6 +124,11 @@ project(':admin') {
         compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
         compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
         compile group: 'io.springfox', name: 'springfox-bean-validators', version: '2.9.2'
+
+
+        //security
+        implementation 'org.springframework.boot:spring-boot-starter-security'
+        testImplementation 'org.springframework.security:spring-security-test'
 
         implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
         implementation 'org.springframework.boot:spring-boot-starter-mail'

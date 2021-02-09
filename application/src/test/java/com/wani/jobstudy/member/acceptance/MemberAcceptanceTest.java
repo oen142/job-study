@@ -48,6 +48,9 @@ public class MemberAcceptanceTest extends AcceptanceTest {
         //then
         회원_정보_수정됨(updateResponse);
 
+        ExtractableResponse<Response> deleteResponse = 회원_정보_삭제_요청(createResponse);
+        //then
+        회원_정보_삭제됨(deleteResponse);
 
 
     }
@@ -100,6 +103,18 @@ public class MemberAcceptanceTest extends AcceptanceTest {
                 .extract();
     }
 
+    public static ExtractableResponse<Response> 회원_정보_삭제_요청(ExtractableResponse<Response> response) {
+        String uri = response.header("Location");
+
+        return RestAssured.given().log().all()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .when()
+                .delete(uri)
+                .then()
+                .log().all()
+                .extract();
+    }
+
 
     public static void 회원_생성됨(ExtractableResponse<Response> response) {
         assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
@@ -116,5 +131,9 @@ public class MemberAcceptanceTest extends AcceptanceTest {
 
     public static void 회원_정보_수정됨(ExtractableResponse<Response> response) {
         assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
+    }
+
+    public static void 회원_정보_삭제됨(ExtractableResponse<Response> response) {
+        assertThat(response.statusCode()).isEqualTo(HttpStatus.NO_CONTENT.value());
     }
 }
