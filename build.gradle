@@ -44,8 +44,8 @@ subprojects {
     }
 
     dependencies {
-        // jwt
-        implementation 'io.jsonwebtoken:jjwt:0.9.1'
+        // https://mvnrepository.com/artifact/com.auth0/java-jwt
+        compile group: 'com.auth0', name: 'java-jwt', version: '3.10.3'
         // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
         compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
 
@@ -68,6 +68,11 @@ project(':domain') {
 
     description = "Common project"
     dependencies {
+
+
+        //security
+        implementation 'org.springframework.boot:spring-boot-starter-security'
+        testImplementation 'org.springframework.security:spring-security-test'
 
         implementation 'mysql:mysql-connector-java'
         implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -97,6 +102,14 @@ project(':application') {
 
     dependencies {
 
+
+        //security
+        implementation 'org.springframework.boot:spring-boot-starter-security'
+        testImplementation 'org.springframework.security:spring-security-test'
+
+        //dev tools
+        compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.4.2'
+
         //swagger
         compile("io.springfox:springfox-swagger2:2.9.2") { exclude module: 'swagger-annotations' exclude module: 'swagger-models' }
         compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
@@ -110,7 +123,6 @@ project(':application') {
         implementation('com.github.lannstark:excel-download:0.1.1')
 
         implementation project(':domain')
-
     }
 
 }

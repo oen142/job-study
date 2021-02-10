@@ -22,4 +22,16 @@ public class Board extends CommonEntity {
     private ReplyFl replyFl;
 
 
+    protected Board() {
+    }
+
+    private Board(ContentsBody contentsBody, ReplyFl replyFl) {
+        this.contentsBody = contentsBody;
+        this.replyFl = replyFl;
+    }
+
+    public static Board ofNew(ContentsBody contentsBody) {
+        return new Board(contentsBody, ReplyFl.REPLY_WAIT);
+    }
+
 }
