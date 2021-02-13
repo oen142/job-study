@@ -4,7 +4,8 @@ public enum CommonResponse {
 
     SUCCESS(1, "성공"),
     FAIL(0, "에러가 발생했습니다."),
-    NOT_AUTHENTICATE(-1, "인증에 실패했습니다.");
+    NOT_AUTHENTICATE(-1, "인증에 실패했습니다."),
+    SIGN_IN_FAIL(-2, "로그인 오류입니다.");
 
     int code;
     String msg;

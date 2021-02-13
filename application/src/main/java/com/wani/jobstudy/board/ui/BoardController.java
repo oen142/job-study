@@ -29,17 +29,16 @@ public class BoardController {
         return ResponseEntity.created(URI.create("/boards/" + board.getId())).build();
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/boards/")
-    public ResponseEntity<List<Board>> findBoards() {
-        List<Board> boardList = boardService.getBoardList();
-        return ResponseEntity.ok().body(boardList);
-    }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/boards")
     public ResponseEntity<List<Board>> findBoardsAuth() {
         List<Board> boardList = boardService.getBoardList();
         return ResponseEntity.ok().body(boardList);
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<BoardResponse> updateBoard() {
+        return ResponseEntity.ok().body(new BoardResponse());
     }
 }
