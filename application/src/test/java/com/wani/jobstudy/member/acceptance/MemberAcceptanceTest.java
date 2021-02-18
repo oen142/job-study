@@ -6,6 +6,7 @@ import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,6 +34,7 @@ public class MemberAcceptanceTest extends AcceptanceTest {
      * */
 
     @Test
+    @Disabled
     void manageMember() {
         //when
         ExtractableResponse<Response> createResponse = 회원_생성을_요청(EMAIL, PASSWORD, USERNAME);

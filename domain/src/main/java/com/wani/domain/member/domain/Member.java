@@ -35,10 +35,6 @@ public class Member extends CommonEntity implements UserDetails {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<UserRole> userRoles = new HashSet<>();
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Keyword> keywords = new HashSet<>();
-
-
     private Member(String email, String username, String password) {
         this.email = MemberEmail.ofNew(email);
         this.username = username;
@@ -118,7 +114,7 @@ public class Member extends CommonEntity implements UserDetails {
         return email.isEnabled();
     }
 
-    public boolean validMemberEmailAuth(String authToken){
+    public boolean validMemberEmailAuth(String authToken) {
         return email.validAuth(authToken);
     }
 

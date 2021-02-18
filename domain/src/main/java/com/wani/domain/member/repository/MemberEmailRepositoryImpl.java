@@ -5,10 +5,8 @@ import com.wani.domain.member.domain.MemberEmail;
 import com.wani.domain.member.domain.QMember;
 import com.wani.domain.member.domain.QMemberEmail;
 
-import javax.persistence.EntityManager;
-import java.util.Optional;
 
-import static com.wani.domain.member.domain.QMemberEmail.memberEmail;
+import javax.persistence.EntityManager;
 
 public class MemberEmailRepositoryImpl implements MemberEmailRepositoryCustom {
 
