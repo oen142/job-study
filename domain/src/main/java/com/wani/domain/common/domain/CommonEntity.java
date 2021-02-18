@@ -22,15 +22,8 @@ public class CommonEntity {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @CreatedBy
-    @Column(name = "created_by")
-    private Long createdMember;
-
     @LastModifiedDate
     @Column(name = "modified_at")
     private LocalDateTime modifiedAt;
 
-    @LastModifiedBy
-    @Column(name = "modified_by")
-    private Long modifiedMember;
 }

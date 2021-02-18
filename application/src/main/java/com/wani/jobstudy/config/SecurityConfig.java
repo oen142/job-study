@@ -60,6 +60,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilter(loginFilter)
                 .addFilter(checkFilter);
-
     }
 }

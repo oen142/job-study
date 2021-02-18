@@ -12,7 +12,7 @@ public class UserRole implements GrantedAuthority {
     @Column(name = "user_role_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 

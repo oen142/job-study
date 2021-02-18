@@ -12,4 +12,6 @@ public interface MemberRepositoryCustom {
     public List<Member> findByEmailAscUserName();
 
     Optional<Member> findByUsername(String username);
+
+    Optional<Member> findByIdAndEmail(Long id, String email);
 }

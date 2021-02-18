@@ -1,6 +1,5 @@
 package com.wani.domain.member.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wani.domain.common.domain.CommonEntity;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
@@ -8,7 +7,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -25,49 +26,52 @@ public class Member extends CommonEntity implements UserDetails {
 
     private String username;
 
-    private String email;
-
     private String password;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private MemberEmail email;
+
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<UserRole> userRoles = new HashSet<>();
 
-    public Member(String email, String username, String password) {
-        this.email = email;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Keyword> keywords = new HashSet<>();
+
+
+    private Member(String email, String username, String password) {
+        this.email = MemberEmail.ofNew(email);
         this.username = username;
         this.password = password;
     }
 
-    public Member(String email, String username, String password, Set<UserRole> userRoles) {
-        this.email = email;
+    private Member(String email, String username, String password, Set<UserRole> userRoles) {
+        this.email = MemberEmail.ofNew(email);
         this.username = username;
         this.password = password;
         this.userRoles = userRoles;
     }
 
 
-    public static Member of(Member member) {
-        return new Member(member.email, member.username, member.password);
-    }
-
-    public static Member ofAdmin(Member member) {
+    public static Member ofAdmin(String email, String username, String password) {
         Set<UserRole> adminRoles = new HashSet<>();
         UserRole adminRole = new UserRole(MemberRole.ROLE_ADMIN);
         UserRole userRole = new UserRole(MemberRole.ROLE_USER);
         adminRoles.add(adminRole);
         adminRoles.add(userRole);
-        Member returnMember = new Member(member.email, member.username, member.password, adminRoles);
+        Member returnMember = new Member(email, username, password, adminRoles);
         adminRole.setMember(returnMember);
         userRole.setMember(returnMember);
 
         return returnMember;
     }
 
-    public static Member ofMember(Member member) {
+    public static Member ofMember(String email, String username, String password) {
         Set<UserRole> userRoles = new HashSet<>();
         UserRole userRole = new UserRole(MemberRole.ROLE_USER);
         userRoles.add(userRole);
-        Member returnMember = new Member(member.email, member.username, member.password, userRoles);
+        Member returnMember = new Member(email, username, password, userRoles);
+
         userRole.setMember(returnMember);
 
         return returnMember;
@@ -96,23 +100,26 @@ public class Member extends CommonEntity implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return email.isLocked();
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return email.isLocked();
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return email.isAuthenticated();
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return email.isEnabled();
     }
 
+    public boolean validMemberEmailAuth(String authToken){
+        return email.validAuth(authToken);
+    }
 
 }

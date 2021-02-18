@@ -23,10 +23,10 @@ public class MemberRequest {
 
     public Member toMember(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
-        return Member.ofMember(new Member(email, username, passwordEncoder.encode(password)));
+        return Member.ofMember(email, username, passwordEncoder.encode(password));
     }
 
     public Member toAdminMember(PasswordEncoder passwordEncoder) {
-        return Member.ofAdmin(new Member(email, username, passwordEncoder.encode(password)));
+        return Member.ofAdmin(email, username, passwordEncoder.encode(password));
     }
 }

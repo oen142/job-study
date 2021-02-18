@@ -1,8 +1,9 @@
 package com.wani.jobstudy.member.ui;
 
 
-import com.wani.domain.response.vo.ListResult;
 import com.wani.jobstudy.member.application.MemberService;
+import com.wani.jobstudy.member.dto.MemberAuthRequest;
+import com.wani.jobstudy.member.dto.MemberAuthResponse;
 import com.wani.jobstudy.member.dto.MemberRequest;
 import com.wani.jobstudy.member.dto.MemberResponse;
 import org.springframework.http.ResponseEntity;
@@ -18,16 +19,16 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    @PostMapping("/members/admin")
-    public ResponseEntity createAdmin(@RequestBody MemberRequest request) {
-        MemberResponse response = memberService.createAdmin(request);
-        return ResponseEntity.created(URI.create("/members/" + response.getId())).build();
-    }
-
-    @PostMapping("/members/user")
+    @PostMapping("/members")
     public ResponseEntity createMember(@RequestBody MemberRequest request) {
         MemberResponse response = memberService.createMember(request);
         return ResponseEntity.created(URI.create("/members/" + response.getId())).build();
+    }
+
+    @PostMapping("/members/email/auth")
+    public ResponseEntity validAuthMember(@RequestBody MemberAuthRequest request) {
+        MemberAuthResponse response = memberService.vaildateMemberEmailAuth(request);
+        return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/members/{id}")

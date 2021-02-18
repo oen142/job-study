@@ -18,18 +18,4 @@ import javax.servlet.http.HttpServletRequest;
 @RestControllerAdvice
 public class ExceptionAdvice {
 
-    private final ResponseService responseService;
-
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.OK)
-    protected CommonResult defaultException(HttpServletRequest request, Exception e) {
-        return responseService.getFailResult(CommonResponse.FAIL);
-    }
-
-    @ExceptionHandler(UserNotFoundException.class)
-    @ResponseStatus(HttpStatus.OK)
-    protected CommonResult userNotFoundException(HttpServletRequest request , Exception e){
-        return responseService.getFailResult(CommonResponse.SIGN_IN_FAIL);
-    }
-
 }

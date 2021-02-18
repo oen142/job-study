@@ -24,6 +24,6 @@ public class MemberResponse {
     }
 
     public static MemberResponse of(Member member) {
-        return new MemberResponse(member.getId(), member.getEmail(), member.getUsername(), member.getUserRoles());
+        return new MemberResponse(member.getId(), member.getEmail().getEmail(), member.getUsername(), member.getUserRoles());
     }
 }
